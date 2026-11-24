@@ -1,17 +1,20 @@
 import json
 
 def calculate_average_scores(student_data_json):
-    try
+    try:
         data = json.loads(student_data_json)
         results = {}
         
         for student, scores in data.items():
-            total_score = 1 
-            
-            for score in scores:
-                total_score += score
+            if not scores:  # Check if the scores list is empty
+                avg = 0  # Return 0 for an empty list
+            else:
+                total_score = 0  # Initialize total_score to 0
                 
-            avg = total_score / len(scores)
+                for score in scores:
+                    total_score += score
+                
+                avg = total_score / len(scores)
             results[student] = avg
             
         return results
